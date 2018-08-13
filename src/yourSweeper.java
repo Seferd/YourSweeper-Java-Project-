@@ -16,9 +16,12 @@ import javax.swing.JTextField;
 
 
 public class yourSweeper {
+	static String x = JOptionPane.showInputDialog("Type in your number");
+	final static int xSize = Integer.parseInt(x);
+	final static int ySize = Integer.parseInt(x);
 	static int initialTime=300;//Initial the time
-	final static int xSize = 10;//Number of Tiles on x-axis
-	final static int ySize = 10;//Number of Tiles on y-axis
+	//final static int xSize = 10;//Number of Tiles on x-axis
+	//final static int ySize = 10;//Number of Tiles on y-axis
 	static int numM = 1;//Number of Mines
 	static int displayMines = numM;//Number to display the number of mine
 	static Timer tm;
