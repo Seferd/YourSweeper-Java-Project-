@@ -20,14 +20,23 @@ import javax.swing.JToolBar;
 import javax.swing.Timer;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+
 
 
 public class yourSweeper {
 	static int initialTime=20;//Initial the time
-	final static int xSize = 1;//Number of Tiles on x-axis
-	final static int ySize = 1;//Number of Tiles on y-axis
-	static int numM = 100;//Number of Mines
+
+
+	static String x = JOptionPane.showInputDialog("Type in a number");
+	
+	static String num = JOptionPane.showInputDialog("Mines?");
+	
+	
+	
+	final static int xSize = Integer.parseInt(x);
+	final static int ySize = Integer.parseInt(x);
+	static int numM = Integer.parseInt(num);//Number of Mines
+
 	static int displayMines = numM;//Number to display the number of mine
 	static Timer tm;
 
