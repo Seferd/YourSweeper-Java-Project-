@@ -16,12 +16,13 @@ import javax.swing.JOptionPane;
 
 
 public class yourSweeper {
-	static int initialTime=20;//Initial the time
+	static String time = JOptionPane.showInputDialog("Time prefer");
+	static int initialTime=Integer.parseInt(time);//Initial the time
 	static String x = JOptionPane.showInputDialog("Type in a number");
 	
 	static String num = JOptionPane.showInputDialog("Mines?");
 	
-	
+	int check = Integer.parseInt(x);
 	
 	final static int xSize = Integer.parseInt(x);
 	final static int ySize = Integer.parseInt(x);
