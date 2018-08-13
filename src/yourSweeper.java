@@ -88,14 +88,14 @@ public class yourSweeper {
 
 
 
-		JButton[][] grid = new JButton[xSize][ySize];//Create Jbuttoms base on the sizes
-		Tile[][] lGrid = new Tile[xSize][ySize];//Create type Tile 
+		final JButton[][] grid = new JButton[xSize][ySize];//Create Jbuttoms base on the sizes
+		final Tile[][] lGrid = new Tile[xSize][ySize];//Create type Tile 
 
 
 		for(int i = 0;i<ySize;i++) {//Generate mines column by column
-			int num1 = i;
+			final int num1 = i;
 			for(int x = 0;x<xSize;x++) {
-				int num2 = x;
+				final int num2 = x;
 
 				lGrid[i][x] = new Tile(x,i);
 				grid[i][x] = new JButton("");
@@ -106,7 +106,6 @@ public class yourSweeper {
 
 				tm=new Timer(1000,new ActionListener() {//Timer method
 
-					@Override
 					public void actionPerformed(ActionEvent arg0) {
 						lbltime.setText("              Time:"+initialTime);
 						initialTime--;
