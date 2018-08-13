@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 
 public class yourSweeper {
-	static int initialTime=3;//Initial the time
+	static int initialTime=300;//Initial the time
 	final static int xSize = 10;//Number of Tiles on x-axis
 	final static int ySize = 10;//Number of Tiles on y-axis
 	static int numM = 1;//Number of Mines
