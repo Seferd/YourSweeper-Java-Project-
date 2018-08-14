@@ -19,7 +19,7 @@ import java.awt.Color;
 
 public class yourSweeper {
 	static String time = JOptionPane.showInputDialog("Time prefer (Max 300)");
-	static int initialTime=20;//Integer.parseInt(time);//Initial the time
+	static int initialTime= Integer.parseInt(time);//Initial the time
 	static String x = JOptionPane.showInputDialog("Type in a number (Max 20)");
 	
 	static String num = JOptionPane.showInputDialog("Mines? (Max 100)" );
@@ -28,7 +28,7 @@ public class yourSweeper {
 	
 	final static int xSize = Integer.parseInt(x);
 	final static int ySize = Integer.parseInt(x);
-	static int numM = 20;//Integer.parseInt(num);
+	static int numM = Integer.parseInt(num);
 	static int displayMines = numM;//Number to display the number of mine
 	static Timer tm;
 
