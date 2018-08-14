@@ -5,9 +5,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.prefs.Preferences;
 
+import javax.swing.ImageIcon;
 import javax.swing.JToolBar;
 import javax.swing.Timer;
 import javax.swing.JLabel;
@@ -18,17 +26,28 @@ import java.awt.Color;
 
 
 public class yourSweeper {
+<<<<<<< HEAD
 	static String time = JOptionPane.showInputDialog("Time prefer (Max 300)");
 	static int initialTime=20;//Integer.parseInt(time);//Initial the time
 	static String x = JOptionPane.showInputDialog("Type in a number (Max 20)");
+=======
+
+
+	static String x = JOptionPane.showInputDialog("Type in a number");
+>>>>>>> 964eef9d123edebafb9d3040d70eb4380071fa06
 	
 	static String num = JOptionPane.showInputDialog("Mines? (Max 100)" );
 	
-	int check = Integer.parseInt(x);
+	
 	
 	final static int xSize = Integer.parseInt(x);
 	final static int ySize = Integer.parseInt(x);
+<<<<<<< HEAD
 	static int numM = 20;//Integer.parseInt(num);
+=======
+	static int numM = Integer.parseInt(num);//Number of Mines
+
+>>>>>>> 964eef9d123edebafb9d3040d70eb4380071fa06
 	static int displayMines = numM;//Number to display the number of mine
 	static Timer tm;
 
@@ -75,12 +94,16 @@ public class yourSweeper {
 	private void initialize() {
 
 		frame = new JFrame();
+<<<<<<< HEAD
 		frame.setBounds(100, 100, 1326, 975);
+=======
+		frame.setBounds(100, 100, 50*xSize, 50*xSize);
+>>>>>>> 964eef9d123edebafb9d3040d70eb4380071fa06
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		toolBar = new JToolBar();
-		toolBar.setBounds(0, 0, 500, 22);
+		toolBar.setBounds(0, 0, 100, 22);
 		frame.getContentPane().add(toolBar);
 
 		lblMines = new JLabel("Mines: "+displayMines);
@@ -233,7 +256,30 @@ public class yourSweeper {
 		button[r][c].setText(""+mineCount);
 	}
 	public static void endGame(int mines) {
+<<<<<<< HEAD
 		//System.out.println("Game Over... with: "+mines+" mines left");
 		gameover.setText("Game Over... with: "+mines+" mines left");
 	}
+=======
+		System.out.println("Game Over... with: "+mines+" mines left");
+		String name=JOptionPane.showInputDialog(null,"Please enter your name","Leaderboard",JOptionPane.PLAIN_MESSAGE);
+		int comfirm=JOptionPane.showConfirmDialog(null, "Is this your first game?","Leaderboard",JOptionPane.YES_NO_OPTION);
+		if(comfirm==JOptionPane.YES_OPTION) {
+			
+			
+		}
+			
+	
+	    
+	}
+
+	private static void Score(String name) {
+	
+		
+       		
+	}
+	
+
+
+>>>>>>> 964eef9d123edebafb9d3040d70eb4380071fa06
 }
