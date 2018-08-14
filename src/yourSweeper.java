@@ -24,7 +24,6 @@ import javax.swing.JOptionPane;
 
 
 public class yourSweeper {
-	static int initialTime=20;//Initial the time
 
 
 	static String x = JOptionPane.showInputDialog("Type in a number");
