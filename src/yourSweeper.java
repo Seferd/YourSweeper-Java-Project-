@@ -235,5 +235,6 @@ public class yourSweeper {
 	public static void endGame(int mines) {
 		//System.out.println("Game Over... with: "+mines+" mines left");
 		gameover.setText("Game Over... with: "+mines+" mines left");
+		String test="just a test";
 	}
 }
