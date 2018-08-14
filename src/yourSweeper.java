@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import java.awt.Color;
 
 
-//ê
+
 public class yourSweeper {
 	static String time = JOptionPane.showInputDialog("Time prefer (Max 300)");
 	static int initialTime=20;//Integer.parseInt(time);//Initial the time
