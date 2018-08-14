@@ -72,12 +72,12 @@ public class yourSweeper {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 548, 513);
+		frame.setBounds(100, 100, 50*xSize, 50*xSize);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		toolBar = new JToolBar();
-		toolBar.setBounds(0, 0, 500, 22);
+		toolBar.setBounds(0, 0, 100, 22);
 		frame.getContentPane().add(toolBar);
 
 		lblMines = new JLabel("Mines: "+displayMines);
