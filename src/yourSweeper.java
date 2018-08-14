@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.JToolBar;
 import javax.swing.Timer;
@@ -235,6 +239,35 @@ public class yourSweeper {
 	public static void endGame(int mines) {
 		//System.out.println("Game Over... with: "+mines+" mines left");
 		gameover.setText("Game Over... with: "+mines+" mines left");
-		String test="just a test";
+		readscore();
+		
 	}
+	public static void setscore(String name,int time) {
+		
+	};
+	public static void readscore() {
+		String pathname=System.getProperty("user.dir");
+		String fqfn=pathname+"\\Resources\\LeadBorad\\Score.txt";
+		try {
+			BufferedReader br=new BufferedReader(new FileReader(fqfn));
+			while(true) {
+				String line=br.readLine();
+				System.out.println(line);
+				if(line==null) {
+					break;
+				}
+			}
+			
+			
+					
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	};
 }
