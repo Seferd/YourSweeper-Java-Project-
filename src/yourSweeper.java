@@ -5,9 +5,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.prefs.Preferences;
 
+import javax.swing.ImageIcon;
 import javax.swing.JToolBar;
 import javax.swing.Timer;
 import javax.swing.JLabel;
@@ -16,17 +24,18 @@ import javax.swing.JOptionPane;
 
 
 public class yourSweeper {
-	static String time = JOptionPane.showInputDialog("Time prefer");
-	static int initialTime=Integer.parseInt(time);//Initial the time
+
+
 	static String x = JOptionPane.showInputDialog("Type in a number");
 	
 	static String num = JOptionPane.showInputDialog("Mines?");
 	
-	int check = Integer.parseInt(x);
+	
 	
 	final static int xSize = Integer.parseInt(x);
 	final static int ySize = Integer.parseInt(x);
 	static int numM = Integer.parseInt(num);//Number of Mines
+
 	static int displayMines = numM;//Number to display the number of mine
 	static Timer tm;
 
@@ -231,7 +240,23 @@ public class yourSweeper {
 	}
 	public static void endGame(int mines) {
 		System.out.println("Game Over... with: "+mines+" mines left");
+		String name=JOptionPane.showInputDialog(null,"Please enter your name","Leaderboard",JOptionPane.PLAIN_MESSAGE);
+		int comfirm=JOptionPane.showConfirmDialog(null, "Is this your first game?","Leaderboard",JOptionPane.YES_NO_OPTION);
+		if(comfirm==JOptionPane.YES_OPTION) {
+			
+			
+		}
+			
+	
+	    
 	}
+
+	private static void Score(String name) {
+	
+		
+       		
+	}
+	
 
 
 }
