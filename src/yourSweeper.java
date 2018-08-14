@@ -12,21 +12,23 @@ import javax.swing.JToolBar;
 import javax.swing.Timer;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.Color;
 
 
 
 public class yourSweeper {
-	static String time = JOptionPane.showInputDialog("Time prefer");
-	static int initialTime=Integer.parseInt(time);//Initial the time
-	static String x = JOptionPane.showInputDialog("Type in a number");
+	static String time = JOptionPane.showInputDialog("Time prefer (Max 300)");
+	static int initialTime=20;//Integer.parseInt(time);//Initial the time
+	static String x = JOptionPane.showInputDialog("Type in a number (Max 20)");
 	
-	static String num = JOptionPane.showInputDialog("Mines?");
+	static String num = JOptionPane.showInputDialog("Mines? (Max 100)" );
 	
 	int check = Integer.parseInt(x);
 	
 	final static int xSize = Integer.parseInt(x);
 	final static int ySize = Integer.parseInt(x);
-	static int numM = Integer.parseInt(num);//Number of Mines
+	static int numM = 20;//Integer.parseInt(num);
 	static int displayMines = numM;//Number to display the number of mine
 	static Timer tm;
 
@@ -36,6 +38,7 @@ public class yourSweeper {
 	private static JLabel lblTIme;
 	private static JLabel lbltime;
 	JButton btnStart;
+	private static JTextField gameover;
 	/**
 	 * Launch the application.
 	 */
@@ -72,7 +75,7 @@ public class yourSweeper {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 548, 513);
+		frame.setBounds(100, 100, 1326, 975);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -86,14 +89,14 @@ public class yourSweeper {
 		lbltime = new JLabel();
 		lbltime.setText("              Time:"+initialTime);
 		toolBar.add(lbltime);
-
-
-
-
-
-
-
-
+		
+		gameover = new JTextField();
+		gameover.setForeground(Color.RED);
+		gameover.setFont(new Font("Tahoma", Font.BOLD, 22));
+		gameover.setEditable(false);
+		gameover.setBounds(852, 400, 444, 62);
+		frame.getContentPane().add(gameover);
+		gameover.setColumns(10);
 
 		final JButton[][] grid = new JButton[xSize][ySize];//Create Jbuttoms base on the sizes
 		final Tile[][] lGrid = new Tile[xSize][ySize];//Create type Tile 
@@ -230,8 +233,7 @@ public class yourSweeper {
 		button[r][c].setText(""+mineCount);
 	}
 	public static void endGame(int mines) {
-		System.out.println("Game Over... with: "+mines+" mines left");
+		//System.out.println("Game Over... with: "+mines+" mines left");
+		gameover.setText("Game Over... with: "+mines+" mines left");
 	}
-
-
 }
