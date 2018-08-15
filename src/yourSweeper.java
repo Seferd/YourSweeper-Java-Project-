@@ -91,7 +91,7 @@ public class yourSweeper {
 		frame.getContentPane().setLayout(null);
 
 		toolBar = new JToolBar();
-		toolBar.setBounds(0, 0, 500, 22);
+		toolBar.setBounds(0, 0, 180, 22);
 		frame.getContentPane().add(toolBar);
 
 		lblMines = new JLabel("Mines: "+displayMines);
@@ -103,9 +103,9 @@ public class yourSweeper {
 		
 		gameover = new JTextField();
 		gameover.setForeground(Color.RED);
-		gameover.setFont(new Font("Tahoma", Font.BOLD, 22));
+		gameover.setFont(new Font("Tahoma", Font.BOLD, 13));
 		gameover.setEditable(false);
-		gameover.setBounds(852, 400, 444, 62);
+		gameover.setBounds(186, 0, 444, 22);
 		frame.getContentPane().add(gameover);
 		gameover.setColumns(10);
 
@@ -166,8 +166,6 @@ public class yourSweeper {
 								grid[num1][num2].setEnabled(false);//if the tile is not the mine,disable the bottom
 								reveal(grid,lGrid,num1,num2);//Reveal method.
 
-
-
 							}
 						}else if(arg0.getButton()==3) {//Right click event
 							if(!lGrid[num1][num2].disarmed) {// set the flag off
@@ -219,7 +217,7 @@ public class yourSweeper {
 	}
 
 
-	public static void reveal(JButton[][] button,Tile[][] tile,int r, int c) {//Revaeal method
+	public static void reveal(JButton[][] button,Tile[][] tile,int r, int c) {//Reveal method
 
 		button[r][c].setEnabled(false);
 		boolean foundMine = false;
@@ -246,11 +244,13 @@ public class yourSweeper {
 	public static void endGame(int mines) {
 		//System.out.println("Game Over... with: "+mines+" mines left");
 		gameover.setText("Game Over... with: "+mines+" mines left");
+		
+		
 		String name=JOptionPane.showInputDialog(null,"Enter your name:");
 		try {
 			setscore(name,initialTime);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		readscore();
@@ -267,7 +267,7 @@ public class yourSweeper {
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(fqfn));
 			PrintWriter pw=new PrintWriter(newfqfn);
-			String newLine=("Name:"+name+",Time spend:"+initialTime+"seconds,Diffcult level:"+xSize+" X "+ySize+" ,Mine Number:"+numM+",Max Time:"+maxTime);
+			String newLine=("Name: "+name+", Time spend: "+initialTime+"seconds, Diffcult level: "+xSize+" x "+ySize+", Mine Number: "+numM+", Max Time: "+maxTime +"\n");
 			String line;
 			while(true) {
 				line=br.readLine();
@@ -292,15 +292,7 @@ public class yourSweeper {
 			File newFile=new File(newfqfn);
 			newFile.renameTo(oldFile);
 		
-			
-			
-			
-		
-			
-			
-			
-			
-			
+	
 			
 			
 		} catch (FileNotFoundException e) {
