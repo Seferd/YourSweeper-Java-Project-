@@ -19,3 +19,9 @@ Name: null, Time spend: 18seconds, Diffcult level: 15 x 15, Mine Number: 20, Max
 Name: null, Time spend: 19seconds, Diffcult level: 30 x 30, Mine Number: 20, Max Time: 30
 Name: bryan, Time spend: 20seconds, Diffcult level: 10 x 10, Mine Number: 20, Max Time: 30
 Name: null, Time spend: 15seconds, Diffcult level: 10 x 10, Mine Number: 20, Max Time: 30
+Name: Alex, Time spend: 114seconds, Diffcult level: 10 x 10, Mine Number: 9, Max Time: 120
+Name: Alex Norwood, Time spend: 236seconds, Diffcult level: 20 x 20, Mine Number: 49, Max Time: 240
+Name: null, Time spend: 114seconds, Diffcult level: 10 x 10, Mine Number: 8, Max Time: 120
+Name: null, Time spend: 120seconds, Diffcult level: 10 x 10, Mine Number: 10, Max Time: 120
+Name: alex, Time spend: 119seconds, Diffcult level: 10 x 10, Mine Number: 10, Max Time: 120
+Name: null, Time spend: 478seconds, Diffcult level: 30 x 30, Mine Number: 100, Max Time: 480

@@ -27,11 +27,10 @@ import javax.swing.ImageIcon;
 
 
 public class yourSweeper {	
-	static String time = JOptionPane.showInputDialog("Time prefer (Max 300)");
-	final static String maxTime=time;
-	static int initialTime= Integer.parseInt(time);//Initial the time
-	static String x = JOptionPane.showInputDialog("Type in a number (Max 20)");
-	
+	static String time;
+	static int initialTime;
+	static String x;
+	static int maxTime;
 	static int numM;
 	static int displayMines;//Number to display the number of mine
 	static Timer tm;
@@ -49,6 +48,7 @@ public class yourSweeper {
 	private JButton btnMedium;
 	private JButton btnHard;
 	private JButton btnCustom;
+	private JButton btnViewScores;
 	/**
 	 * Launch the application.
 	 */
@@ -82,6 +82,9 @@ public class yourSweeper {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	private void initialize() {
 
 		frame = new JFrame();
@@ -96,6 +99,7 @@ public class yourSweeper {
 				numM = 10;
 				displayMines = numM;
 				time = "120";
+				maxTime = 120;
 				width = 460;
 				height = 500;
 				frame.dispose();
@@ -113,6 +117,7 @@ public class yourSweeper {
 				numM = 50;
 				displayMines = numM;
 				time = "240";
+				maxTime = 240;
 				width = 860;
 				height = 900;
 				frame.dispose();
@@ -130,6 +135,7 @@ public class yourSweeper {
 				numM = 100;
 				displayMines = numM;
 				time = "480";
+				maxTime = 480;
 				width = 1260;
 				height = 1300;
 				String[] ret = new String[2];
@@ -144,6 +150,7 @@ public class yourSweeper {
 		btnCustom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				time = JOptionPane.showInputDialog("Time prefer (Max 300)");
+				maxTime = Integer.parseInt(time);
 				numM = Integer.parseInt(JOptionPane.showInputDialog("Mines? (Max 100)" ));
 				displayMines = numM;
 				x = JOptionPane.showInputDialog("Type in a number (Max 20)");
@@ -157,15 +164,21 @@ public class yourSweeper {
 		btnCustom.setBounds(318, 462, 115, 29);
 		frame.getContentPane().add(btnCustom);
 		
+		btnViewScores = new JButton("View Scores");
+		btnViewScores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				readscore();
+			}
+		});
+		btnViewScores.setBounds(605, 0, 135, 29);
+		frame.getContentPane().add(btnViewScores);
+		
 		lblImage = new JLabel("Image");
 		lblImage.setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/sweeper.jpg")));
 		lblImage.setBounds(0, 0, 750, 524);
 		frame.getContentPane().add(lblImage);
 
 	}
-	/**
-	 * @wbp.parser.entryPoint
-	 */
 	public void startGame() {
 		int size = Integer.parseInt(x);
 		initialTime = Integer.parseInt(time);//Initial the time
@@ -216,7 +229,7 @@ public class yourSweeper {
 						initialTime--;
 						 if(initialTime==-1) {
 							tm.stop();
-							endGame(numM);
+							endGame(numM,grid,lGrid);
 							frame.dispose();
 							main(new String[0]);
 							
@@ -246,7 +259,7 @@ public class yourSweeper {
 
 							if(lGrid[num1][num2].isMine) {//if the player hit the mine target, end the game
 								tm.stop();//if hit the mine,time stop
-								endGame(numM);
+								endGame(numM,grid,lGrid);
 								frame.dispose();
 								main(new String[0]);
 
@@ -290,7 +303,7 @@ public class yourSweeper {
 			if(tile[r][c].isMine) {
 				numM--;
 				if(numM==0) {
-					endGame(numM);
+					endGame(numM,button,tile);
 				}
 			}
 			displayMines--;
@@ -352,9 +365,14 @@ public class yourSweeper {
 			default: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/empty.png")));
 		}
 	}
-	public static void endGame(int mines) {
-		JOptionPane.showMessageDialog(null, "Game Over.. " +mines+" Mines left "+initialTime+" Seconds remaining");
+	public static void endGame(int mines,JButton[][] button,Tile[][] tile) {
+		//JOptionPane.showMessageDialog(null, "Game Over.. " +mines+" Mines left "+initialTime+" Seconds remaining");
 		//System.out.println("Game Over... with: "+mines+" mines left");
+		for(int r=0;r<Integer.parseInt(x);r++) {
+			for(int c=0;c<Integer.parseInt(x);c++) {
+				if(tile[r][c].isMine)button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/mine.png")));
+			}
+		}
 		gameover.setText("Game Over... with: "+mines+" mines left");
 		
 		
