@@ -4,9 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.annotation.Resource;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.swing.JToolBar;
 import javax.swing.Timer;
@@ -22,6 +31,14 @@ public class yourSweeper {
 	static String time;
 	static int initialTime;
 	static String x;
+}
+
+
+public class yourSweeper {	
+	static String time = JOptionPane.showInputDialog("Time prefer (Max 300)");
+	final static String maxTime=time;
+	static int initialTime= Integer.parseInt(time);//Initial the time
+	static String x = JOptionPane.showInputDialog("Type in a number (Max 20)");
 	
 	static int numM;
 	static int displayMines;//Number to display the number of mine
@@ -178,6 +195,14 @@ public class yourSweeper {
 		lbltime = new JLabel();
 		lbltime.setText("              Time:"+initialTime);
 		toolBar.add(lbltime);
+		
+		gameover = new JTextField();
+		gameover.setForeground(Color.RED);
+		gameover.setFont(new Font("Tahoma", Font.BOLD, 13));
+		gameover.setEditable(false);
+		gameover.setBounds(186, 0, 444, 22);
+		frame.getContentPane().add(gameover);
+		gameover.setColumns(10);
 
 		for(int i = 0;i<size;i++) {//Generate mines column by column
 			final int num1 = i;
@@ -337,5 +362,103 @@ public class yourSweeper {
 	}
 	public static void endGame(int mines) {
 		JOptionPane.showMessageDialog(null, "Game Over.. " +mines+" Mines left "+initialTime+" Seconds remaining");
+		//System.out.println("Game Over... with: "+mines+" mines left");
+		gameover.setText("Game Over... with: "+mines+" mines left");
+		
+		
+		String name=JOptionPane.showInputDialog(null,"Enter your name:");
+		try {
+			setscore(name,initialTime);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		readscore();
+		
+	}
+	public static void setscore(String name,int time) throws IOException {
+		
+		String output="";
+		ArrayList<String> stringToDis=new ArrayList<String>();
+		String pathname=System.getProperty("user.dir");
+		String fqfn=pathname+"\\Resources\\Score.txt";
+		String newfqfn=pathname+"\\Resources\\NewScore.txt";
+		
+		try {
+			BufferedReader br=new BufferedReader(new FileReader(fqfn));
+			PrintWriter pw=new PrintWriter(newfqfn);
+			String newLine=("Name: "+name+", Time spend: "+initialTime+"seconds, Diffcult level: "+x+" x "+x+", Mine Number: "+numM+", Max Time: "+maxTime +"\n");
+			String line;
+			while(true) {
+				line=br.readLine();
+				
+				if(line==null) {
+					break;
+					
+					
+				}
+				pw.println(line);
+				
+				
+			}
+			line=newLine;
+			pw.print(line);
+			
+			//Name:ha,Time spend:30 seconds,Diffcult level: 20 X 20 ,Mine Number:20,Max Time:3
+			br.close();
+			pw.close();
+			File oldFile=new File(fqfn);
+			oldFile.delete();
+			File newFile=new File(newfqfn);
+			newFile.renameTo(oldFile);
+		
+	
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	};
+	public static void readscore(){
+	
+		String output="";
+		String pathname=System.getProperty("user.dir");
+		String fqfn=pathname+"\\Resources\\Score.txt";
+		String newfqfn=pathname+"\\Resources\\NewScore.txt";
+		ArrayList<String> stringToDis=new ArrayList<String>();
+		
+		
+		try {
+			BufferedReader br=new BufferedReader(new FileReader(fqfn));
+			while(true) {
+				String line=br.readLine();
+			
+				stringToDis.add(line);
+				
+				if(line==null) {
+					break;
+				}
+				
+			}
+			br.close();
+           for(int i=0;i<stringToDis.size()-1;i++) {
+        	   String scratch=stringToDis.get(i).toString();
+        	   output+=scratch+"\n";
+           }
+			
+			
+			JOptionPane.showMessageDialog(null, output, "Score Board", JOptionPane.PLAIN_MESSAGE);
+			
+					
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

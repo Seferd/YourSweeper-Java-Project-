@@ -1,0 +1,21 @@
+Name:YOU,Time spend:28 seconds,Diffcult level:40 X 40 ,Mine Number:20,Max Time:30
+Name:Victor,Time spend:28 seconds,Diffcult level:40 X 40 ,Mine Number:20,Max Time:30
+Name:Alex,Time spend:294 seconds,Diffcult level:40 X 40 ,Mine Number:20,Max Time:300
+Name:zheng,Time spend:1seconds,Diffcult level:1 X 1 ,Mine Number:1,Max Time:1
+Name:1,Time spend:1seconds,Diffcult level:1 X 1 ,Mine Number:1,Max Time:1
+Name:hasaki,Time spend:2seconds,Diffcult level:2 X 2 ,Mine Number:2,Max Time:2
+Name:Alex,Time spend:2seconds,Diffcult level:2 X 2 ,Mine Number:2,Max Time:2
+Name:hasaki,Time spend:1seconds,Diffcult level:1 X 1 ,Mine Number:1,Max Time:1
+Name:vicotr,Time spend:1seconds,Diffcult level:2 X 2 ,Mine Number:1,Max Time:1
+Name:zheng,Time spend:29seconds,Diffcult level:20 X 20 ,Mine Number:29,Max Time:30
+Name:ha,Time spend:18seconds,Diffcult level:20 X 20 ,Mine Number:20,Max Time:20
+Name:zheng,Time spend:9seconds,Diffcult level:10 X 10 ,Mine Number:1,Max Time:10
+Name:zheng,Time spend:2seconds,Diffcult level:1 X 1 ,Mine Number:2,Max Time:2
+Name:Bryan,Time spend:299seconds,Diffcult level:10 X 10 ,Mine Number:12,Max Time:300
+Name:Bryan chau,Time spend:14seconds,Diffcult level:15 X 15 ,Mine Number:7,Max Time:20
+Name: qưe4gveq, Time spend: 297seconds, Diffcult level: 20 x 20, Mine Number: 100, Max Time: 300
+Name: swb, Time spend: 300seconds, Diffcult level: 15 x 15, Mine Number: 200, Max Time: 300
+Name: null, Time spend: 18seconds, Diffcult level: 15 x 15, Mine Number: 20, Max Time: 20
+Name: null, Time spend: 19seconds, Diffcult level: 30 x 30, Mine Number: 20, Max Time: 30
+Name: bryan, Time spend: 20seconds, Diffcult level: 10 x 10, Mine Number: 20, Max Time: 30
+Name: null, Time spend: 15seconds, Diffcult level: 10 x 10, Mine Number: 20, Max Time: 30
