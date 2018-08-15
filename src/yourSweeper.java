@@ -26,14 +26,6 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 
 
-
-public class yourSweeper {
-	static String time;
-	static int initialTime;
-	static String x;
-}
-
-
 public class yourSweeper {	
 	static String time = JOptionPane.showInputDialog("Time prefer (Max 300)");
 	final static String maxTime=time;
