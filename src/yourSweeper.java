@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.annotation.Resource;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ import java.awt.Color;
 
 
 public class yourSweeper {
+	
 	static String time = JOptionPane.showInputDialog("Time prefer (Max 300)");
 	final static String maxTime=time;
 	static int initialTime= Integer.parseInt(time);//Initial the time
@@ -258,8 +261,8 @@ public class yourSweeper {
 		String output="";
 		ArrayList<String> stringToDis=new ArrayList<String>();
 		String pathname=System.getProperty("user.dir");
-		String fqfn=pathname+"\\Resources\\LeadBorad\\Score.txt";
-		String newfqfn=pathname+"\\Resources\\LeadBorad\\NewScore.txt";
+		String fqfn=pathname+"\\Resources\\Score.txt";
+		String newfqfn=pathname+"\\Resources\\NewScore.txt";
 		
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(fqfn));
@@ -308,11 +311,13 @@ public class yourSweeper {
 		
 	};
 	public static void readscore(){
+	
 		String output="";
 		String pathname=System.getProperty("user.dir");
-		String fqfn=pathname+"\\Resources\\LeadBorad\\Score.txt";
-		String newfqfn=pathname+"\\Resources\\LeadBorad\\NewScore.txt";
+		String fqfn=pathname+"\\Resources\\Score.txt";
+		String newfqfn=pathname+"\\Resources\\NewScore.txt";
 		ArrayList<String> stringToDis=new ArrayList<String>();
+		
 		
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(fqfn));
