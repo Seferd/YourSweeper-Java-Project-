@@ -474,16 +474,15 @@ public class yourSweeper {
 
 	}
 	public static void setscore(String name,int time,int mineLeft) throws IOException {
-		fqfn=prefs.get("ScoreFile1", "filePath");
-		File oldFile=new File(fqfn);
+		String fqfn=prefs.get("ScoreFile1", "filePath");
 		System.out.println("SetScore:"+fqfn);
-		String newfqfn=fqfn+"new";
+		String newfqfn=fqfn+"new.txt";
 		System.out.println(fqfn);
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(fqfn));
 			PrintWriter pw=new PrintWriter(newfqfn);
-			String newLine=null;
+			String newLine;
 			if(mineLeft!=0) {
 				newLine=("Name: "+name+", Time spend: "+(initialTime+1)+" seconds, Diffcult level: "+x+" x "+x+", Mines left: "+mineLeft+", Max Time: "+maxTime +" Max Mine Number: "+maxMine+"\n");}
 			else {
@@ -499,34 +498,40 @@ public class yourSweeper {
 			pw.println(line);
 			br.close();
 			pw.close();
-			oldFile.delete();
+			
+			File oldFile=new File(fqfn);
 			File newFile=new File(newfqfn);
 			newFile.renameTo(oldFile);
+			String path=newFile.getAbsolutePath();
+			
 		} catch (Exception e) {
 			System.out.println("Error");
 		}
-		
+		try {
+			BufferedReader br2=new BufferedReader(new FileReader(newfqfn));
+			PrintWriter pw2=new PrintWriter(fqfn);
+			String line1;			
+			while(true) {
+				line1=br2.readLine();
+				if(line1==null) { break;}
+				pw2.println(line1);
+			}
 			
-
-
-
-
-
-		
-
-
-
+			br2.close();
+			pw2.close();
+		}catch(Exception e) {
+			
+		};
 	};
 	private void delectScore() throws IOException {
 		fqfn=prefs.get("ScoreFile1", "filePath");
 		File oldFile=new File(fqfn);
-		System.out.println("SetScore:"+fqfn);
+		System.out.println("DeleteScore at:"+fqfn);
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(fqfn));
 			PrintWriter pw=new PrintWriter(fqfn);
-			String newLine=null;
-			String line;			
+			String line=null;			
 			while(true) {
 				line=br.readLine();
 				if(line==null) { break;}
