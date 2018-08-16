@@ -484,9 +484,9 @@ public class yourSweeper {
 			PrintWriter pw=new PrintWriter(newfqfn);
 			String newLine;
 			if(mineLeft!=0) {
-				newLine=("Name: "+name+", Time spend: "+(initialTime+1)+" seconds, Diffcult level: "+x+" x "+x+", Mines left: "+mineLeft+", Max Time: "+maxTime +" Max Mine Number: "+maxMine+"\n");}
+				newLine=("Name: "+name+", Time spend: "+(initialTime+1)+" seconds, Diffcult level: "+x+" x "+x+", Mines left: "+mineLeft+", Max Time: "+maxTime +" Max Mine Number: "+maxMine);}
 			else {
-				newLine=("  |C l e a r !|    "+"Name: "+name+", Time spend: "+(initialTime+1)+" seconds, Diffcult level: "+x+" x "+x+" "+", Max Time: "+maxTime +" Max Mine Number: "+maxMine+"\n");
+				newLine=("  |C l e a r !|    "+"Name: "+name+", Time spend: "+(initialTime+1)+" seconds, Diffcult level: "+x+" x "+x+" "+", Max Time: "+maxTime +" Max Mine Number: "+maxMine);
 			}
 			String line;			
 			while(true) {
