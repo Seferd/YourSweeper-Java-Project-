@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.annotation.Resource;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 import javax.swing.JToolBar;
 import javax.swing.Timer;
@@ -26,17 +29,21 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 
 
+
 public class yourSweeper {	
+	private static Preferences prefs;
 	static String time;
 	static int initialTime;
 	static String x;
 	static int maxTime;
 	static int numM;
+	static int mineLeft;
+	static int maxMine;
 	static int displayMines;//Number to display the number of mine
 	static Timer tm;
 	static int height;
 	static int width;
-
+	static boolean win;
 	private JFrame frame;
 	private JToolBar toolBar;
 	private static JLabel lblMines;
@@ -49,6 +56,8 @@ public class yourSweeper {
 	private JButton btnHard;
 	private JButton btnCustom;
 	private JButton btnViewScores;
+	private JButton btnClearScore;
+	private static String fqfn;
 	/**
 	 * Launch the application.
 	 */
@@ -68,6 +77,7 @@ public class yourSweeper {
 
 
 		});
+
 	}
 
 	/**
@@ -86,17 +96,60 @@ public class yourSweeper {
 	 * @wbp.parser.entryPoint
 	 */
 	private void initialize() {
+	prefs = Preferences.userRoot().node("YourSweeper");
+	fqfn=prefs.get("ScoreFile1", "none");
+	System.out.println(fqfn);
+	if(fqfn.equals("none")){
+				JOptionPane.showMessageDialog(null,"Please select the score.txt in the main folder");
+				JFileChooser jfc=new JFileChooser();
+				int response = jfc.showOpenDialog(null);
+				if(response!=JFileChooser.APPROVE_OPTION) {
+					JOptionPane.showMessageDialog(null,"Please select the score.txt file" );
+					return;}
 
+				File theFile=jfc.getSelectedFile();
+				String filePath=theFile.getAbsolutePath();
+				prefs.put("ScoreFile1", filePath);
+				fqfn=prefs.get("ScoreFile1", filePath);
+				System.out.println(fqfn);
+			
+			
+			
+		}
+	try {
+		BufferedReader br=new BufferedReader(new FileReader(fqfn));
+	} catch (FileNotFoundException e1) {
+		JOptionPane.showMessageDialog(null,"Welcome back!");
+		JOptionPane.showMessageDialog(null,"Your saving file is missed,Please relocate your new saving file");
+		JFileChooser jfc=new JFileChooser();
+		int response = jfc.showOpenDialog(null);
+		if(response!=JFileChooser.APPROVE_OPTION) {
+			JOptionPane.showMessageDialog(null,"Please select the score.txt file" );
+			return;}
+
+		File theFile=jfc.getSelectedFile();
+		String filePath=theFile.getAbsolutePath();
+		prefs.put("ScoreFile1", filePath);
+		fqfn=prefs.get("ScoreFile1", filePath);
+		JOptionPane.showMessageDialog(null,"Thank you!Now please enjor your game");
+		System.out.println(fqfn);
+		
+	}
+
+		
+	
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 762, 571);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		btnEasy = new JButton("Easy");
 		btnEasy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				x = "10";
 				numM = 10;
+				maxMine=numM;
 				displayMines = numM;
 				time = "120";
 				maxTime = 120;
@@ -109,13 +162,14 @@ public class yourSweeper {
 		});
 		btnEasy.setBounds(71, 394, 115, 29);
 		frame.getContentPane().add(btnEasy);
-		
+
 		btnMedium = new JButton("Medium");
 		btnMedium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				x = "20";
 				numM = 50;
 				displayMines = numM;
+				maxMine=numM;
 				time = "240";
 				maxTime = 240;
 				width = 860;
@@ -127,13 +181,14 @@ public class yourSweeper {
 		});
 		btnMedium.setBounds(318, 394, 115, 29);
 		frame.getContentPane().add(btnMedium);
-		
+
 		btnHard = new JButton("Hard");
 		btnHard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				x = "30";
 				numM = 100;
 				displayMines = numM;
+				maxMine=numM;
 				time = "480";
 				maxTime = 480;
 				width = 1260;
@@ -145,7 +200,7 @@ public class yourSweeper {
 		});
 		btnHard.setBounds(559, 394, 115, 29);
 		frame.getContentPane().add(btnHard);
-		
+
 		btnCustom = new JButton("Custom");
 		btnCustom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -153,6 +208,7 @@ public class yourSweeper {
 				maxTime = Integer.parseInt(time);
 				numM = Integer.parseInt(JOptionPane.showInputDialog("Mines? (Max 100)" ));
 				displayMines = numM;
+				maxMine=numM;
 				x = JOptionPane.showInputDialog("Type in a number (Max 20)");
 				width = 2000;
 				height = 1000;
@@ -163,20 +219,41 @@ public class yourSweeper {
 		});
 		btnCustom.setBounds(318, 462, 115, 29);
 		frame.getContentPane().add(btnCustom);
-		
+
 		btnViewScores = new JButton("View Scores");
 		btnViewScores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				readscore();
+				try {
+					readscore();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		btnViewScores.setBounds(605, 0, 135, 29);
 		frame.getContentPane().add(btnViewScores);
-		
+
 		lblImage = new JLabel("Image");
 		lblImage.setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/sweeper.jpg")));
 		lblImage.setBounds(0, 0, 750, 524);
 		frame.getContentPane().add(lblImage);
+
+		btnClearScore = new JButton("Clear Score");
+		btnClearScore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					delectScore();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+
+		});
+		btnClearScore.setBounds(450,0, 115, 29);
+		frame.getContentPane().add(btnClearScore);
 
 	}
 	public void startGame() {
@@ -200,7 +277,7 @@ public class yourSweeper {
 		lbltime = new JLabel();
 		lbltime.setText("              Time:"+initialTime);
 		toolBar.add(lbltime);
-		
+
 		gameover = new JTextField();
 		gameover.setForeground(Color.RED);
 		gameover.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -227,22 +304,23 @@ public class yourSweeper {
 					public void actionPerformed(ActionEvent arg0) {
 						lbltime.setText("              Time:"+initialTime);
 						initialTime--;
-						 if(initialTime==-1) {
+						if(initialTime==-1) {
 							tm.stop();
+							JOptionPane.showMessageDialog(null, "       Time Out!","Game Over",JOptionPane.PLAIN_MESSAGE);
 							endGame(numM,grid,lGrid);
 							frame.dispose();
 							main(new String[0]);
-							
-							
+
+
+
 						}
-						 else if(numM==0) {
-							 tm.stop();
-							 System.out.println("You won!");
-							 System.out.println("Score time:"+(initialTime+1)+" seconds");
-							 frame.dispose();
-							 main(new String[0]);
-							 
-						 }
+						else if(numM==0) {
+							tm.stop();
+							frame.dispose();
+							main(new String[0]);
+
+
+						}
 					}
 
 				});
@@ -258,6 +336,7 @@ public class yourSweeper {
 							tm.start();//left click to start the game
 
 							if(lGrid[num1][num2].isMine) {//if the player hit the mine target, end the game
+
 								tm.stop();//if hit the mine,time stop
 								endGame(numM,grid,lGrid);
 								frame.dispose();
@@ -265,7 +344,7 @@ public class yourSweeper {
 
 
 							}
-							
+
 							else {
 								grid[num1][num2].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/empty.png")));
 								reveal(grid,lGrid,num1,num2);//Reveal method.
@@ -277,12 +356,12 @@ public class yourSweeper {
 								flag(grid,lGrid,num1,num2,true);
 							}
 						}
-						
-						
+
+
 					}
-					
+
 				});
-				
+
 
 			}
 		}
@@ -321,7 +400,7 @@ public class yourSweeper {
 	}
 
 
-	public static void reveal(JButton[][] button,Tile[][] tile,int r, int c) {//Revaeal method
+	public static void reveal(JButton[][] button,Tile[][] tile,int r, int c) {//Reveal method
 
 		button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/empty.png")));
 		tile[r][c].setEnabled(false);
@@ -333,7 +412,7 @@ public class yourSweeper {
 			if(r+a>=0&&r+a<=Integer.parseInt(x)-1) {
 				for(int b = -1;b<2;b++) {
 					if(c+b>=0&&c+b<=Integer.parseInt(x)-1) {
-						
+
 						if(!tile[r+a][c+b].isMine&&tile[r+a][c+b].isEnabled()&&!foundMine) {
 							if(hasLooped) reveal(button,tile,r+a,c+b);
 						}else if(tile[r+a][c+b].isMine) {
@@ -346,23 +425,23 @@ public class yourSweeper {
 			if(a==1&&!hasLooped) { a=-2;hasLooped = true;mineCount=0;}
 		}	
 		switch(mineCount) {
-			case 1: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/one.png")));
-				break;
-			case 2: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/two.png")));
-				break;
-			case 3: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/three.png")));
-				break;
-			case 4: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/four.png")));
-				break;
-			case 5: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/five.png")));
-				break;
-			case 6: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/six.png")));
-				break;
-			case 7: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/seven.png")));
-				break;
-			case 8: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/eight.png")));
-				break;
-			default: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/empty.png")));
+		case 1: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/one.png")));
+		break;
+		case 2: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/two.png")));
+		break;
+		case 3: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/three.png")));
+		break;
+		case 4: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/four.png")));
+		break;
+		case 5: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/five.png")));
+		break;
+		case 6: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/six.png")));
+		break;
+		case 7: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/seven.png")));
+		break;
+		case 8: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/eight.png")));
+		break;
+		default: button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/empty.png")));
 		}
 	}
 	public static void endGame(int mines,JButton[][] button,Tile[][] tile) {
@@ -373,99 +452,132 @@ public class yourSweeper {
 				if(tile[r][c].isMine)button[r][c].setIcon(new ImageIcon(yourSweeper.class.getResource("/Resources/mine.png")));
 			}
 		}
+		mineLeft=mines;
 		gameover.setText("Game Over... with: "+mines+" mines left");
-		
-		
-		String name=JOptionPane.showInputDialog(null,"Enter your name:");
+		String name=null;
+		if(mines==0) {name=JOptionPane.showInputDialog(null,"             "+"Victory!!!!"+"\n"+" Please enter your name!!!");}
+		else {
+			name=JOptionPane.showInputDialog(null,"             "+"Try again!!!!"+"\n"+" Please enter your name!!!");
+		}
 		try {
-			setscore(name,initialTime);
+			setscore(name,initialTime,mineLeft);
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		readscore();
-		
-	}
-	public static void setscore(String name,int time) throws IOException {
-		
-		String output="";
-		ArrayList<String> stringToDis=new ArrayList<String>();
-		String pathname=System.getProperty("user.dir");
-		String fqfn=pathname+"\\Resources\\Score.txt";
-		String newfqfn=pathname+"\\Resources\\NewScore.txt";
-		
 		try {
-			BufferedReader br=new BufferedReader(new FileReader(fqfn));
-			PrintWriter pw=new PrintWriter(newfqfn);
-			String newLine=("Name: "+name+", Time spend: "+initialTime+"seconds, Diffcult level: "+x+" x "+x+", Mine Number: "+numM+", Max Time: "+maxTime +"\n");
-			String line;
-			while(true) {
-				line=br.readLine();
-				
-				if(line==null) {
-					break;
-					
-					
-				}
-				pw.println(line);
-				
-				
-			}
-			line=newLine;
-			pw.print(line);
-			
-			//Name:ha,Time spend:30 seconds,Diffcult level: 20 X 20 ,Mine Number:20,Max Time:3
-			br.close();
-			pw.close();
-			File oldFile=new File(fqfn);
-			oldFile.delete();
-			File newFile=new File(newfqfn);
-			newFile.renameTo(oldFile);
-		
-	
-			
-			
-		} catch (FileNotFoundException e) {
+			readscore();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+	public static void setscore(String name,int time,int mineLeft) throws IOException {
+		fqfn=prefs.get("ScoreFile1", "filePath");
+		File oldFile=new File(fqfn);
+		System.out.println("SetScore:"+fqfn);
+		String newfqfn=fqfn+"new";
+		System.out.println(fqfn);
+
+		try {
+			BufferedReader br=new BufferedReader(new FileReader(fqfn));
+			PrintWriter pw=new PrintWriter(newfqfn);
+			String newLine=null;
+			if(mineLeft!=0) {
+				newLine=("Name: "+name+", Time spend: "+(initialTime+1)+" seconds, Diffcult level: "+x+" x "+x+", Mines left: "+mineLeft+", Max Time: "+maxTime +" Max Mine Number: "+maxMine+"\n");}
+			else {
+				newLine=("  |C l e a r !|    "+"Name: "+name+", Time spend: "+(initialTime+1)+" seconds, Diffcult level: "+x+" x "+x+" "+", Max Time: "+maxTime +" Max Mine Number: "+maxMine+"\n");
+			}
+			String line;			
+			while(true) {
+				line=br.readLine();
+				if(line==null) { break;}
+				pw.println(line);
+			}
+			line=newLine;
+			pw.println(line);
+			br.close();
+			pw.close();
+			oldFile.delete();
+			File newFile=new File(newfqfn);
+			newFile.renameTo(oldFile);
+		} catch (Exception e) {
+			System.out.println("Error");
+		}
 		
+			
+
+
+
+
+
 		
+
+
+
 	};
-	public static void readscore(){
-	
+	private void delectScore() throws IOException {
+		fqfn=prefs.get("ScoreFile1", "filePath");
+		File oldFile=new File(fqfn);
+		System.out.println("SetScore:"+fqfn);
+
+		try {
+			BufferedReader br=new BufferedReader(new FileReader(fqfn));
+			PrintWriter pw=new PrintWriter(fqfn);
+			String newLine=null;
+			String line;			
+			while(true) {
+				line=br.readLine();
+				if(line==null) { break;}
+				pw.println(line);
+			}
+			pw.close();
+			br.close();
+		
+		}catch (Exception e) {
+			System.out.println("Error");
+		}
+	}
+	public static void readscore()throws IOException{
+		
+		System.out.println("View Bottom to read a file at:"+fqfn);
 		String output="";
-		String pathname=System.getProperty("user.dir");
-		String fqfn=pathname+"\\Resources\\Score.txt";
-		String newfqfn=pathname+"\\Resources\\NewScore.txt";
 		ArrayList<String> stringToDis=new ArrayList<String>();
-		
-		
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(fqfn));
 			while(true) {
 				String line=br.readLine();
-			
+
 				stringToDis.add(line);
-				
+
 				if(line==null) {
 					break;
 				}
-				
+
 			}
 			br.close();
-           for(int i=0;i<stringToDis.size()-1;i++) {
-        	   String scratch=stringToDis.get(i).toString();
-        	   output+=scratch+"\n";
-           }
-			
-			
+			for(int i=0;i<stringToDis.size()-1;i++) {
+				String scratch=stringToDis.get(i).toString();
+				output+=scratch+"\n";
+			}
 			JOptionPane.showMessageDialog(null, output, "Score Board", JOptionPane.PLAIN_MESSAGE);
-			
-					
+
+
 		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "Score File is not located,please reselect the score text file again");
+			JFileChooser jfc=new JFileChooser();
+			int response = jfc.showSaveDialog(null);
+			if(response!=JFileChooser.APPROVE_OPTION) {
+				JOptionPane.showMessageDialog(null,"Please select the score.txt file" );
+				return;
+			}
+			File theFile=jfc.getSelectedFile();
+			String filePath=theFile.getAbsolutePath();
+			prefs.put("ScoreFile1", filePath);
+			fqfn=prefs.get("ScoreFile1",filePath);
+
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
